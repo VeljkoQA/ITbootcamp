@@ -4,11 +4,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage extends BasicPage{
 
-	public LoginPage(WebDriver driver, JavascriptExecutor js) {
-		super(driver, js);
+	public LoginPage(WebDriver driver, JavascriptExecutor js, WebDriverWait waiter) {
+		super(driver, js, waiter);
 	}
 	
 	public WebElement getLoginButton() {
@@ -27,12 +28,16 @@ public class LoginPage extends BasicPage{
 		return driver.findElement(By.name("btn_submit"));
 	}
 	
-//	metodu koja prijavljuje korisnika na sistem - kao parametri se prosleđuju imejl i lozinka
+//	method that logs the user to the system - email and password are forwarded as parameters
 	
-	public void loginUser (String emailUsername, String password) {
-		this.getEmailUsername();
-		this.getPassword();
+	public void loginUser (String username, String password) {
+		this.getLoginButton().click();
+		this.getEmailUsername().clear();
+		this.getEmailUsername().sendKeys(username);
+		this.getPassword().clear();
+		this.getPassword().sendKeys(password);
 		this.getSecondLoginButton().click();
+		
 	}
 	
 	
