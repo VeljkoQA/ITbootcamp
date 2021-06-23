@@ -13,23 +13,16 @@ public class NotificationSistemPage extends BasicPage{
 		super(driver, js, waiter);
 	}
 	
-	public WebElement getLoginSuccessfull() {
-		return driver.findElement(By.xpath("//*[contains(@class, 'alert--success')]"));
+	public WebElement getMessage() {
+		return this.driver.findElement(By.xpath("//*contains(@class, 'alert--success') or contains(@class, 'alert--danger')[contains(@style,'display: block')]"));
 	}
 	
-//	public WebElement getMessageReturn() {
-//		return driver.findElement(By.)
-//	}
-	
-//	a method that waits for the notification to disappear
-//	waiting for element // * [contains (@class, 'system_message')]
-//	gets the value "display: none;" for the style attribute
-	
-	public void waitsNotificationDisappear() {
-		WebDriverWait wait = new WebDriverWait (driver, 10);
-//		WebElement element = driver.findElement(By.xpath("//*[contains(@style,'display: block')])"));
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@style,'display: block')][contains(@style,'display: none')])")));
+	public String getMessageText() {
+		return this.getMessage().getText();
 	}
 	
+	public void waitUntilMessageDisappears() {
+		this.waiter.until(ExpectedConditions.attributeContains(By.xpath("//*[contains(@class, 'system_message')]"), "style", "display: none;"));
+	}
 	
 }
