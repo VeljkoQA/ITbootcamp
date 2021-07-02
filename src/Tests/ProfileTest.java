@@ -2,6 +2,7 @@ package Tests;
 
 import static org.testng.Assert.assertTrue;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.testng.Assert;
@@ -66,8 +67,23 @@ public class ProfileTest extends BasicTest{
 		
 		// img upload
 		
-//		this.driver.navigate().to(baseUrl + "/member/profile");
-//		String imgPath = new File().getCanonicalPath();
+		this.driver.navigate().to(baseUrl + "/member/profile");
+		String imgPath = new File("C:\\Users\\Veljko\\Desktop\\ITBootcamp\\ITbootcamp\\img\\cropped-smile-t-1.png").getCanonicalPath();
+		this.profilePage.imgUpload(imgPath);
+		Assert.assertTrue(this.notificationSistemPage.getMessageText().contains(imgMessage), this.imgMessageFail);
+		this.notificationSistemPage.waitUntilMessageDisappears();
+		
+		// img delete
+		
+		this.profilePage.deleteImg();
+		Assert.assertTrue(this.notificationSistemPage.getMessageText().contains(imgDelete), this.imgDeleteFail);
+		this.notificationSistemPage.waitUntilMessageDisappears();
+		
+		// loguot 
+		
+		this.authPage.logout();
+		Assert.assertTrue(this.notificationSistemPage.getMessageText().contains(logoutMessage), this.logoutMessageFail);
+		this.notificationSistemPage.waitUntilMessageDisappears();
 		
 	}
 	
